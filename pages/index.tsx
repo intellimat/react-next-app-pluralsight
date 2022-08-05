@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import Speaker from "../components/Speaker";
+import Speaker from "../components/Speaker/Speaker";
 import { data } from "../SpeakerData";
 
 const Home: NextPage = () => {
