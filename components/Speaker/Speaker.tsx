@@ -1,9 +1,10 @@
+import { Speaker } from "../../Speaker.model";
 import Sessions from "./speaker-subcomponents/Sessions";
 import SpeakerDemographics from "./speaker-subcomponents/SpeakerDemographics";
 import SpeakerImage from "./speaker-subcomponents/SpeakerImage";
 
 export interface SpeakerProps {
-  speaker: any;
+  speaker: Speaker;
 }
 
 function Speaker({ speaker }: SpeakerProps): JSX.Element {
