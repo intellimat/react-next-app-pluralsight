@@ -5,7 +5,7 @@ export interface Speaker {
   company: string;
   bio: string;
   twitterHandle: string;
-  favorite: true;
+  favorite: boolean;
   sessions: Session[];
 }
 
