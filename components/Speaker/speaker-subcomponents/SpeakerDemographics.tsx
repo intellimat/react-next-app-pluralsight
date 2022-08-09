@@ -1,3 +1,5 @@
+import SpeakerFavorite from "./SpeakerFavorite";
+
 export interface SpeakerDemographicsProps {
   firstName: string;
   lastName: string;
@@ -5,6 +7,7 @@ export interface SpeakerDemographicsProps {
   company: string;
   twitterHandle: string;
   favorite: boolean;
+  onFavoriteToggle: any; //function
 }
 
 function SpeakerDemographics({
@@ -14,6 +17,7 @@ function SpeakerDemographics({
   company,
   twitterHandle,
   favorite,
+  onFavoriteToggle,
 }: SpeakerDemographicsProps): JSX.Element {
   return (
     <div className="speaker-info">
@@ -22,6 +26,10 @@ function SpeakerDemographics({
           {firstName} {lastName}
         </h3>
       </div>
+      <SpeakerFavorite
+        favorite={favorite}
+        onFavoriteToggle={onFavoriteToggle}
+      />
       <div>
         <p className="card-description">
           {bio} {company} {twitterHandle} {favorite}

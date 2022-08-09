@@ -1,9 +1,9 @@
 import type { NextPage } from "next";
-import SpeakersList from "../components/SpeakersList";
+import Speakers from "../components/App";
 import { data } from "../SpeakerData";
 
 const Home: NextPage = () => {
-  return <SpeakersList speakers={data} />;
+  return <Speakers speakers={data} />;
 };
 
 export default Home;
