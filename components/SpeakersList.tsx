@@ -1,14 +1,18 @@
-import useRequestSpeakers from "./hooks/useRequestSpeakers";
+import { Speaker } from "../Speaker.model";
+import useRequestDelay, { REQUEST_STATUS } from "./hooks/useRequestDelay";
 import SpeakerComponent from "./Speaker/Speaker";
+import { data as MockedData } from "../SpeakerData";
 
 interface SpeakersProps {
   showSessions: boolean;
 }
 function SpeakersList({ showSessions }: SpeakersProps): JSX.Element {
-  const { hasErrored, error, isLoading, speakersData, onFavoriteToggle } =
-    useRequestSpeakers(2000);
+  const { error, requestStatus, data, updateRecord } = useRequestDelay(
+    2000,
+    MockedData
+  );
 
-  if (hasErrored)
+  if (requestStatus === REQUEST_STATUS.FAILURE)
     return (
       <div className="text-danger">
         {" "}
@@ -16,14 +20,19 @@ function SpeakersList({ showSessions }: SpeakersProps): JSX.Element {
       </div>
     );
 
-  if (isLoading) return <div>Loading...</div>;
+  if (requestStatus === REQUEST_STATUS.LOADING) return <div>Loading...</div>;
 
   return (
     <div className="container speakers-list">
       <div className="row">
-        {speakersData.map((speaker) => (
+        {data.map((speaker: Speaker) => (
           <SpeakerComponent
-            onFavoriteToggle={() => onFavoriteToggle(speaker.id)}
+            onFavoriteToggle={(doneCallback: any) =>
+              updateRecord(
+                { ...speaker, favorite: !speaker.favorite },
+                doneCallback
+              )
+            }
             key={speaker.id}
             speaker={speaker}
             showSessions={showSessions}
