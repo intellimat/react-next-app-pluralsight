@@ -1,33 +1,28 @@
-import { useState } from "react";
-import { data } from "../SpeakerData";
-import Speaker from "./Speaker/Speaker";
+import useRequestSpeakers from "./hooks/useRequestSpeakers";
+import SpeakerComponent from "./Speaker/Speaker";
 
-export interface SpeakersProps {
+interface SpeakersProps {
   showSessions: boolean;
 }
-
 function SpeakersList({ showSessions }: SpeakersProps): JSX.Element {
-  const [speakersData, setSpeakersData] = useState(data);
+  const { hasErrored, error, isLoading, speakersData, onFavoriteToggle } =
+    useRequestSpeakers(2000);
 
-  function onFavoriteToggle(id: string) {
-    const speakersRecPrevious = speakersData.find((rec) => rec.id === id)!;
-    const speakerRecUpdated = {
-      ...speakersRecPrevious,
-      favorite: !speakersRecPrevious!.favorite,
-    };
-
-    const speakersDataNew = speakersData.map((rec) =>
-      rec.id === id ? speakerRecUpdated : rec
+  if (hasErrored)
+    return (
+      <div className="text-danger">
+        {" "}
+        ERROR: <b>loading Speaker Data Failed {error}</b>
+      </div>
     );
 
-    setSpeakersData(speakersDataNew);
-  }
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <div className="container speakers-list">
       <div className="row">
         {speakersData.map((speaker) => (
-          <Speaker
+          <SpeakerComponent
             onFavoriteToggle={() => onFavoriteToggle(speaker.id)}
             key={speaker.id}
             speaker={speaker}
