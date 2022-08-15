@@ -1,5 +1,5 @@
 import { Speaker } from "../Speaker.model";
-import useRequestDelay, { REQUEST_STATUS } from "./hooks/useRequestDelay";
+import useRequestDelay, { REQUEST_STATUS } from "../Hooks/useRequestDelay";
 import SpeakerComponent from "./Speaker/Speaker";
 import { data as MockedData } from "../SpeakerData";
 

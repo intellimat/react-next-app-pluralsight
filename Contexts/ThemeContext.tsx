@@ -5,25 +5,18 @@ export const ThemeContext = createContext({
   setTheme: (theme: string) => {},
 });
 
-interface LayoutProps {
-  startingTheme: string;
+interface ThemeContextProps {
   children?: React.ReactNode;
+  startingTheme: string;
 }
 
-function Layout({ startingTheme, children }: LayoutProps) {
+function ThemeProvider({ children, startingTheme }: ThemeContextProps) {
   const [theme, setTheme] = useState(startingTheme);
   return (
     <ThemeContext.Provider value={{ setTheme, theme }}>
-      <div
-        className={
-          (theme === "light" && "container-fluid light") ||
-          "container-fluid dark"
-        }
-      >
-        {children}
-      </div>
+      {children}
     </ThemeContext.Provider>
   );
 }
 
-export default Layout;
+export { ThemeProvider };

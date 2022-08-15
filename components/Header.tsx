@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { ThemeContext } from "../components/Layouts/Layout";
 import { useContext } from "react";
+import { ThemeContext } from "../Contexts/ThemeContext";
 
 interface HeaderProps {}
 

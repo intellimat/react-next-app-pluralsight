@@ -1,5 +1,5 @@
+import Layout from "../Layouts/Layout";
 import Header from "./Header";
-import Layout from "./Layouts/Layout";
 import Speakers from "./Speakers";
 
 interface AppProps {}

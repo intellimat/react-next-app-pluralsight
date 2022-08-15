@@ -1,6 +1,5 @@
-import { ThemeContext } from "../components/Layouts/Layout";
-
 import { useContext } from "react";
+import { ThemeContext } from "../Contexts/ThemeContext";
 
 interface SpeakersToolbarProps {
   showSessions: boolean;
