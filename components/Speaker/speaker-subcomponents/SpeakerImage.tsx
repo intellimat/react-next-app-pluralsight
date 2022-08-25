@@ -1,16 +1,13 @@
 import Image from "next/image";
+import { useContext } from "react";
+import { SpeakerContext } from "../../../Contexts/SpeakerContext";
 
-export interface SpeakerImageProps {
-  id: string;
-  firstName: string;
-  lastName: string;
-}
+export interface SpeakerImageProps {}
 
-function SpeakerImage({
-  id,
-  firstName,
-  lastName,
-}: SpeakerImageProps): JSX.Element {
+function SpeakerImage({}: SpeakerImageProps) {
+  const {
+    speaker: { id, firstName, lastName },
+  } = useContext(SpeakerContext);
   return (
     <div className="speaker-img d-flex flex-row justify-content-center align-items-center h-300">
       <Image

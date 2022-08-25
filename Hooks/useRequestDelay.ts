@@ -27,7 +27,7 @@ function useRequestDelay(delaytime: number, initialData = [] as any[]) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function updateRecord(recordUpdated: any, doneCallback: any) {
+  function updateRecord(recordUpdated: any, doneCallback?: any) {
     // Optimistic UI approach
     const originalRecords = [...data];
     // Local example. In real situations we call an API.

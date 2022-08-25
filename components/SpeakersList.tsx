@@ -2,11 +2,12 @@ import { Speaker } from "../Speaker.model";
 import useRequestDelay, { REQUEST_STATUS } from "../Hooks/useRequestDelay";
 import SpeakerComponent from "./Speaker/Speaker";
 import { data as MockedData } from "../SpeakerData";
+import { SpeakerFilterContext } from "../Contexts/SpeakerFilterContext";
+import { useContext } from "react";
 
-interface SpeakersProps {
-  showSessions: boolean;
-}
-function SpeakersList({ showSessions }: SpeakersProps): JSX.Element {
+interface SpeakersProps {}
+function SpeakersList({}: SpeakersProps): JSX.Element {
+  const { searchQuery, eventYear } = useContext(SpeakerFilterContext);
   const { error, requestStatus, data, updateRecord } = useRequestDelay(
     2000,
     MockedData
@@ -25,19 +26,25 @@ function SpeakersList({ showSessions }: SpeakersProps): JSX.Element {
   return (
     <div className="container speakers-list">
       <div className="row">
-        {data.map((speaker: Speaker) => (
-          <SpeakerComponent
-            onFavoriteToggle={(doneCallback: any) =>
-              updateRecord(
-                { ...speaker, favorite: !speaker.favorite },
-                doneCallback
-              )
-            }
-            key={speaker.id}
-            speaker={speaker}
-            showSessions={showSessions}
-          />
-        ))}
+        {data
+          .filter(
+            (speaker) =>
+              speaker.firstName.toLowerCase().includes(searchQuery) ||
+              speaker.lastName.toLowerCase().includes(searchQuery)
+          )
+          .filter((speaker) =>
+            speaker.sessions.find(
+              (session: { eventYear: string }) =>
+                session.eventYear === eventYear
+            )
+          )
+          .map((speaker: Speaker) => (
+            <SpeakerComponent
+              key={speaker.id}
+              speaker={speaker}
+              updateRecord={updateRecord}
+            />
+          ))}
       </div>
     </div>
   );

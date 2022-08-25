@@ -1,24 +1,13 @@
+import { useContext } from "react";
+import { SpeakerContext } from "../../../Contexts/SpeakerContext";
 import SpeakerFavorite from "./SpeakerFavorite";
 
-export interface SpeakerDemographicsProps {
-  firstName: string;
-  lastName: string;
-  bio: string;
-  company: string;
-  twitterHandle: string;
-  favorite: boolean;
-  onFavoriteToggle: any; //function
-}
+export interface SpeakerDemographicsProps {}
 
-function SpeakerDemographics({
-  firstName,
-  lastName,
-  bio,
-  company,
-  twitterHandle,
-  favorite,
-  onFavoriteToggle,
-}: SpeakerDemographicsProps): JSX.Element {
+function SpeakerDemographics({}: SpeakerDemographicsProps) {
+  const { speaker } = useContext(SpeakerContext);
+  const { firstName, lastName, bio, company, twitterHandle, favorite } =
+    speaker;
   return (
     <div className="speaker-info">
       <div className="d-flex justify-content-between mb-3">
@@ -26,10 +15,7 @@ function SpeakerDemographics({
           {firstName} {lastName}
         </h3>
       </div>
-      <SpeakerFavorite
-        favorite={favorite}
-        onFavoriteToggle={onFavoriteToggle}
-      />
+      <SpeakerFavorite />
       <div>
         <p className="card-description">
           {bio} {company} {twitterHandle} {favorite}
