@@ -4,6 +4,7 @@ import SpeakerComponent from "./Speaker/Speaker";
 import { data as MockedData } from "../SpeakerData";
 import { SpeakerFilterContext } from "../Contexts/SpeakerFilterContext";
 import { useContext } from "react";
+import SpeakerAdd from "./SpeakerAdd";
 
 interface SpeakersProps {}
 function SpeakersList({}: SpeakersProps): JSX.Element {
@@ -29,6 +30,7 @@ function SpeakersList({}: SpeakersProps): JSX.Element {
 
   return (
     <div className="container speakers-list">
+      <SpeakerAdd eventYear={eventYear} insertRecord={insertRecord} />
       <div className="row">
         {data
           .filter(

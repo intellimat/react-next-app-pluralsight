@@ -5,6 +5,7 @@ import Sessions from "./speaker-subcomponents/Sessions";
 import SpeakerDemographics from "./speaker-subcomponents/SpeakerDemographics";
 import SpeakerImage from "./speaker-subcomponents/SpeakerImage";
 import { SpeakerProvider, SpeakerContext } from "../../Contexts/SpeakerContext";
+import SpeakerDelete from "./speaker-subcomponents/SpeakerDelete";
 
 export interface SpeakerProps {
   speaker: Speaker;
@@ -32,6 +33,7 @@ function Speaker({
           <SpeakerImage />
           <SpeakerDemographics {...speaker} />
           {showSessions && <Sessions />}
+          <SpeakerDelete />
         </div>
       </div>
     </SpeakerProvider>
