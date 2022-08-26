@@ -11,23 +11,31 @@ const defaultSpeakerContextValue = {
     favorite: false,
     sessions: [] as Session[],
   } as Speaker,
-  updateRecord: (newRecord: any, doneCallback?: any) => {},
+  updateRecord: (record: any, doneCallback?: any) => {},
+  insertRecord: (record: any, doneCallback?: any) => {},
+  deleteRecord: (record: any, doneCallback?: any) => {},
 };
 const SpeakerContext = createContext(defaultSpeakerContextValue);
 
 interface SpeakerProviderProps {
   children: React.ReactNode;
   speaker: Speaker;
-  updateRecord: (newRecord: any) => void;
+  updateRecord: (record: any) => void;
+  insertRecord: (record: any) => void;
+  deleteRecord: (record: any) => void;
 }
 
 function SpeakerProvider({
   children,
   speaker,
   updateRecord,
+  insertRecord,
+  deleteRecord,
 }: SpeakerProviderProps) {
   return (
-    <SpeakerContext.Provider value={{ speaker, updateRecord }}>
+    <SpeakerContext.Provider
+      value={{ speaker, updateRecord, insertRecord, deleteRecord }}
+    >
       {children}
     </SpeakerContext.Provider>
   );

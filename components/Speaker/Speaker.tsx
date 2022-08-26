@@ -8,13 +8,25 @@ import { SpeakerProvider, SpeakerContext } from "../../Contexts/SpeakerContext";
 
 export interface SpeakerProps {
   speaker: Speaker;
-  updateRecord: (newRecord: any, doneCallback?: any) => void;
+  updateRecord: (record: any, doneCallback?: any) => void;
+  insertRecord: (record: any, doneCallback?: any) => void;
+  deleteRecord: (record: any, doneCallback?: any) => void;
 }
 
-function Speaker({ speaker, updateRecord }: SpeakerProps): JSX.Element {
+function Speaker({
+  speaker,
+  updateRecord,
+  insertRecord,
+  deleteRecord,
+}: SpeakerProps): JSX.Element {
   const { showSessions } = useContext(SpeakerFilterContext);
   return (
-    <SpeakerProvider speaker={speaker} updateRecord={updateRecord}>
+    <SpeakerProvider
+      speaker={speaker}
+      updateRecord={updateRecord}
+      insertRecord={insertRecord}
+      deleteRecord={deleteRecord}
+    >
       <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4">
         <div className="card card-height p-4 mt-4">
           <SpeakerImage />

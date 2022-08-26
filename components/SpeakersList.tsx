@@ -8,10 +8,14 @@ import { useContext } from "react";
 interface SpeakersProps {}
 function SpeakersList({}: SpeakersProps): JSX.Element {
   const { searchQuery, eventYear } = useContext(SpeakerFilterContext);
-  const { error, requestStatus, data, updateRecord } = useRequestDelay(
-    2000,
-    MockedData
-  );
+  const {
+    error,
+    requestStatus,
+    data,
+    updateRecord,
+    insertRecord,
+    deleteRecord,
+  } = useRequestDelay(2000, MockedData);
 
   if (requestStatus === REQUEST_STATUS.FAILURE)
     return (
@@ -43,6 +47,8 @@ function SpeakersList({}: SpeakersProps): JSX.Element {
               key={speaker.id}
               speaker={speaker}
               updateRecord={updateRecord}
+              insertRecord={insertRecord}
+              deleteRecord={deleteRecord}
             />
           ))}
       </div>

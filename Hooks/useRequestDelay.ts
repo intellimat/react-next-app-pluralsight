@@ -48,7 +48,50 @@ function useRequestDelay(delaytime: number, initialData = [] as any[]) {
     })();
   }
 
-  return { data, requestStatus, error, updateRecord };
+  function insertRecord(record: any, doneCallback?: any) {
+    // Optimistic UI approach
+    const originalRecords = [...data];
+    // Local example. In real situations we call an API.
+    const newRecords = [record, ...data];
+    (async (): Promise<void> => {
+      try {
+        setData(newRecords);
+        await delay();
+        if (doneCallback) doneCallback();
+      } catch (e: any) {
+        console.log("error thrown inside delayFunction", error);
+        if (doneCallback) doneCallback();
+        setData(originalRecords);
+      }
+    })();
+  }
+
+  function deleteRecord(record: any, doneCallback?: any) {
+    // Optimistic UI approach
+    const originalRecords = [...data];
+    // Local example. In real situations we call an API.
+    const newRecords = data.filter((element) => element.id != record.id);
+    (async (): Promise<void> => {
+      try {
+        setData(newRecords);
+        await delay();
+        if (doneCallback) doneCallback();
+      } catch (e: any) {
+        console.log("error thrown inside delayFunction", error);
+        if (doneCallback) doneCallback();
+        setData(originalRecords);
+      }
+    })();
+  }
+
+  return {
+    data,
+    requestStatus,
+    error,
+    updateRecord,
+    insertRecord,
+    deleteRecord,
+  };
 }
 
 export default useRequestDelay;
