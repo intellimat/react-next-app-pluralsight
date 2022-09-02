@@ -1,7 +1,6 @@
 import { Speaker } from "../Speaker.model";
-import useRequestDelay, { REQUEST_STATUS } from "../Hooks/useRequestDelay";
+import useRequestRest, { REQUEST_STATUS } from "../Hooks/useRequestRest";
 import SpeakerComponent from "./Speaker/Speaker";
-import { data as MockedData } from "../SpeakerData";
 import { SpeakerFilterContext } from "../Contexts/SpeakerFilterContext";
 import { useContext } from "react";
 import SpeakerAdd from "./SpeakerAdd";
@@ -16,7 +15,7 @@ function SpeakersList({}: SpeakersProps): JSX.Element {
     updateRecord,
     insertRecord,
     deleteRecord,
-  } = useRequestDelay(2000, MockedData);
+  } = useRequestRest();
 
   if (requestStatus === REQUEST_STATUS.FAILURE)
     return (

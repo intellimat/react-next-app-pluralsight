@@ -15,7 +15,7 @@ function SpeakerAdd({ eventYear, insertRecord }: SpeakerAddProps) {
             throw "Input a firstname and lastname";
           }
           insertRecord({
-            id: "999999",
+            id: "99999",
             firstName: firstLastArray[0],
             lastName: firstLastArray[1],
             bio: "Bio not entered yet",

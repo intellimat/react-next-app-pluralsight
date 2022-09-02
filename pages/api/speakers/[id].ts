@@ -2,6 +2,7 @@
 import path from "path";
 import fs from "fs";
 import { Speaker } from "../../../Speaker.model";
+import type { NextApiRequest, NextApiResponse } from "next";
 
 const { promisify } = require("util");
 
@@ -13,12 +14,13 @@ const delay = (ms: number) =>
     setTimeout(resolve, ms);
   });
 
-export default async function handler(req: any, res: any) {
+export default async function handler(req: NextApiRequest, res: any) {
   //   res.status(200).send(JSON.stringify(data, null, 2));
 
-  const method: String = req?.method;
-  const id: String = req?.query.id;
-  const recordFromBody: Partial<Speaker> = req?.body; // assuming client always puts all data besides id
+  const method = req.method;
+  const id = req.query.id as String;
+  const recordFromBody: Partial<Speaker> = req.body; // assuming client always puts all data besides id
+  const jsonFile = path.resolve("./", "db.json");
 
   switch (method) {
     case "POST":
@@ -34,8 +36,6 @@ export default async function handler(req: any, res: any) {
       res.status(501).send(`Method ${method} not implemented`);
       console.log(`Method ${method} not implemented`);
   }
-
-  const jsonFile = path.resolve("./", "db.json");
 
   async function postMethod() {
     try {
@@ -115,6 +115,7 @@ export default async function handler(req: any, res: any) {
         res.status(404).send("Error: Request failed with status code 404");
         return;
       }
+      console.log(recordFromBody);
       const newSpeakersArray = speakers.map((record: Speaker) =>
         record.id === id ? recordFromBody : record
       );
