@@ -1,4 +1,3 @@
-// import { data } from "../../../SpeakerData";
 import path from "path";
 import fs from "fs";
 import { Speaker } from "../../../Speaker.model";
@@ -14,9 +13,10 @@ const delay = (ms: number) =>
     setTimeout(resolve, ms);
   });
 
-export default async function handler(req: NextApiRequest, res: any) {
-  //   res.status(200).send(JSON.stringify(data, null, 2));
-
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const method = req.method;
   const id = req.query.id as String;
   const recordFromBody: Partial<Speaker> = req.body; // assuming client always puts all data besides id
@@ -115,7 +115,6 @@ export default async function handler(req: NextApiRequest, res: any) {
         res.status(404).send("Error: Request failed with status code 404");
         return;
       }
-      console.log(recordFromBody);
       const newSpeakersArray = speakers.map((record: Speaker) =>
         record.id === id ? recordFromBody : record
       );
