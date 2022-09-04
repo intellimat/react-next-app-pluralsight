@@ -50,7 +50,6 @@ function SpeakersList({}: SpeakersProps): JSX.Element {
               updateRecord={updateRecord}
               insertRecord={insertRecord}
               deleteRecord={deleteRecord}
-              showErrorCard={false}
             />
           ))}
       </div>
