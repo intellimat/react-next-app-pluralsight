@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import WithData from "../components/HOC/WithData";
+import SpeakerRenderProps from "../components/RenderProps/SpeakersRenderProps";
 
 interface Speaker {
   imageSrc: string;
@@ -9,20 +9,24 @@ interface Speaker {
 export interface SpeakersProps {
   speakers: Speaker[];
 }
-const Speakers = ({ speakers }: SpeakersProps) => {
+const Speakers = () => {
   return (
-    <div>
-      {speakers.map(({ imageSrc, name }) => (
-        <Image
-          src={`/images/${imageSrc}.jpg`}
-          alt={name}
-          key={imageSrc}
-          height="300"
-          width="300"
-        />
-      ))}
-    </div>
+    <SpeakerRenderProps>
+      {({ speakers }: SpeakersProps) => (
+        <div>
+          {speakers.map(({ imageSrc, name }) => (
+            <Image
+              src={`/images/${imageSrc}.jpg`}
+              alt={name}
+              key={imageSrc}
+              height="300"
+              width="300"
+            />
+          ))}
+        </div>
+      )}
+    </SpeakerRenderProps>
   );
 };
 
-export default WithData(2)(Speakers);
+export default Speakers;
