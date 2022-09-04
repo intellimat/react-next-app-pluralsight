@@ -18,7 +18,7 @@ function SpeakerDemographics({}: SpeakerDemographicsProps) {
       <SpeakerFavorite />
       <div>
         <p className="card-description">
-          {bio} {company} {twitterHandle} {favorite}
+          {bio.substring(0, 70)} {company} {twitterHandle} {favorite}
         </p>
 
         <div className="social d-flex flex-row mt-4">
