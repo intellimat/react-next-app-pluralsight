@@ -1,11 +1,45 @@
 import Image from "next/image";
 import { useContext } from "react";
 import { ThemeContext } from "../Contexts/ThemeContext";
+import WithAuth from "./HOC/WithAuth";
+import { LoginStateProps } from "./LoginModel";
 
-interface HeaderProps {}
+interface HeaderProps extends LoginStateProps {}
 
-export function Header(props: HeaderProps) {
+export function Header({ loggedInUser, setLoggedInUser }: HeaderProps) {
   const { theme } = useContext(ThemeContext);
+
+  function LoggedIn({ loggedInUser, setLoggedInUser }: LoginStateProps) {
+    return (
+      <div>
+        <span>Logged in as {loggedInUser}</span>
+        <button
+          className="btn btn-secondary"
+          onClick={() => {
+            setLoggedInUser("");
+          }}
+        >
+          Logout
+        </button>
+      </div>
+    );
+  }
+
+  function LoggedOut({ setLoggedInUser }: LoginStateProps) {
+    return (
+      <button
+        className="btn btn-secondary"
+        onClick={(e) => {
+          e.preventDefault();
+          const username = window.prompt("Enter Login Name: ", "");
+          setLoggedInUser(username ?? "");
+        }}
+      >
+        Login
+      </button>
+    );
+  }
+
   return (
     <div className="padT4 padB4">
       <div className="container mobile-container">
@@ -22,10 +56,17 @@ export function Header(props: HeaderProps) {
             <h4 className="header-title">Silicon Valley Code Camp</h4>
           </div>
           <div className={(theme === "dark" && "text-light") || "text-dark"}>
-            Hello Mr. Smith &nbsp;&nbsp;
-            <span>
-              <a href="#">sign-out</a>
-            </span>
+            {loggedInUser && loggedInUser.length > 0 ? (
+              <LoggedIn
+                loggedInUser={loggedInUser}
+                setLoggedInUser={setLoggedInUser}
+              />
+            ) : (
+              <LoggedOut
+                loggedInUser={loggedInUser}
+                setLoggedInUser={setLoggedInUser}
+              />
+            )}
           </div>
         </div>
       </div>
@@ -33,4 +74,4 @@ export function Header(props: HeaderProps) {
   );
 }
 
-export default Header;
+export default WithAuth(Header);

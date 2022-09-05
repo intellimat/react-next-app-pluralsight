@@ -1,9 +1,16 @@
-interface SpeakerAddProps {
+import WithAuth from "./HOC/WithAuth";
+import { LoginStateProps } from "./LoginModel";
+interface SpeakerAddProps extends Partial<LoginStateProps> {
   eventYear: string;
   insertRecord: (record: any) => void;
 }
 
-function SpeakerAdd({ eventYear, insertRecord }: SpeakerAddProps) {
+function SpeakerAdd({
+  eventYear,
+  insertRecord,
+  loggedInUser,
+}: SpeakerAddProps) {
+  if (!loggedInUser || loggedInUser.length === 0) return null;
   return (
     <a href="#" className="addSes">
       <i
@@ -38,4 +45,4 @@ function SpeakerAdd({ eventYear, insertRecord }: SpeakerAddProps) {
   );
 }
 
-export default SpeakerAdd;
+export default WithAuth(SpeakerAdd);
